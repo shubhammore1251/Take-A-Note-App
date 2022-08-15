@@ -1,38 +1,687 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Uchen&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+body{
+    font-family: 'Uchen', serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+/*Navbar*/
+.navbar{
+    box-shadow: rgb(214, 213, 213) 0px 50px 40px 0px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navbar .brand-name{
+    font-size: 23px;
+    font-weight: bold;
+    margin-left: 10px;
+    letter-spacing: 1px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.navbar ul {
+    margin-left: 2vw;
+   
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar ul li a{
+    font-size: 20px;
+    font-weight: bolder;
+    margin-right: 1vw;
+    /* background-color: rgba(15, 14, 14, 0.908); */
+    color: black !important;
+    border-radius: 20px;
+    letter-spacing: 2px;
+   
+}
+
+.navbar ul li a:hover{
+    color: rgb(76, 74, 74) !important;
+}
+
+.button-group .log-btn{
+    background-color: rgba(15, 14, 14, 0.908);
+    color: white;
+    width: 80px;
+    height: 30px;
+    font-size: 15px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.user-icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/*Notelist*/
+
+.card-cont h1{
+    font-size: 2rem ;
+    font-weight: bolder;
+    margin-top: 8vh !important;
+   
+}
+
+.card-cont .card-grid{
+   
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    margin-top: 10vh;
+}
+
+.card-cont .card{
+    box-shadow: 10px 10px 16px 1px rgba(0,0,0,0.45);
+    -webkit-box-shadow: 10px 10px 16px 1px rgba(0,0,0,0.45);
+    -moz-box-shadow: 10px 10px 16px 1px rgba(0,0,0,0.45);
+
+    width: 400px !important;
+    height: fit-content;
+    border-top: 3px solid #ffc107;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.card-cont .card .card-header{ 
+    font-size: 18px !important;
+    font-weight: bold;
+    text-transform: capitalize;
+    border-bottom: none !important;
+    background-color: #fff !important;
+}
+
+.card-footer{
+    border-top: none !important; 
+    background-color: #fff !important;
+}
+
+.card-body .card-text{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.footer-left i{
+    cursor: pointer;
+    color: black !important;
+    font-size: 22px !important;
+}
+
+.footer-right p{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+.modal-header{
+    border-top: 4px solid #ffc107;
+}
+
+.modal-title{
+    font-weight: bold;
+    word-spacing: -8px;
+}
+
+.modal-body label{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.modal-footer{
+    border: none;
+}
+
+.modal-btn{
+    border-radius: 8px !important;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+}
+
+.modal-btn:hover{
+    background-color: rgb(69, 69, 69);
+    color: white;
+}
+
+
+.modal-body  input{
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+.modal-body  input[type=text]:focus{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+    border-bottom: 2px solid #ffbf00 !important;
+}
+
+.modal-body  textarea{
+    border: none;
+    border-bottom: 2px solid black ;
+}
+
+.modal-body  textarea:focus{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+    border-bottom: 2px solid #ffbf00 !important;
+}
+
+
+/*Add a Note*/
+.heading h1{
+    font-size: 2rem;
+    margin-top: 10vh;
+    font-weight: 600;
+}
+
+
+.form-div{
+    box-shadow: 10px 10px 16px 1px rgba(0,0,0,0.45);
+    -webkit-box-shadow: 10px 10px 16px 1px rgba(0,0,0,0.45);
+    -moz-box-shadow: 10px 10px 16px 1px rgba(0,0,0,0.45);
+    height: fit-content;
+    width: 60vw;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 12vw;
+   
+}
+
+.form-class{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   font-family: 'Poppins', sans-serif !important;
+}
+
+
+.form-div label{
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.form-class input{
+    width: 600px;
+    height: 40px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 3px solid black;
+}
+
+.form-class input[type=text]:focus{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+    border-bottom: 3px solid #ffbf00 !important;
+}
+
+.form-class textarea{
+    width: 600px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 4px solid black ;
+}
+
+.form-class textarea:focus{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+    border-bottom: 4px solid #ffbf00 !important;
+}
+
+.form-class .btn-submit{
+    width: 120px;
+    height: 40px;
+    border: none;
+    background-color: #ffbf00;
+    color: black;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: 0.6s ease-in-out;
+}
+
+.form-class .btn-submit:hover{
+    background-color: #ffe084;
+}
+
+.form-class .btn-submit:disabled{
+    background-color: rgb(192, 189, 189);
+    transition: 0.6s ease-in-out;
+}
+
+
+/*Empty Notelist*/
+.not-found{
+   
+    margin-left: 30vw;
+    margin-top: -15vh;
+    user-select: none;
+}
+
+.not-found h2{
+    margin-top: 1vh;
+    font-size: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/*Login Screen*/
+.login{
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.login .login-container{
+    background-color: #ffbf00;
+    padding: 5rem;
+    margin: 0 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container img{
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+}
+
+.login-container button{
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin-top: 5vh;
+    
+}
+
+.login-container button:focus {
+    outline: none;
+}
+
+
+.login-container p{
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+
+.login-container p a{
+    text-decoration: none;
+    color: rgb(62, 13, 197);
+}
+
+
+
+/*Media Queries*/
+@media (min-width: 320px) and (max-width:480px) {
+
+    .navbar{
+        box-shadow: rgb(214, 213, 213) 0px 0px 0px 0px;
+        
+    }
+
+    .navbar ul{
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar ul li a{
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        background-color: #ffbf00;
+        color: #000 !important;
+        font-size: 20px;
+    }
+
+    .navbar ul li a:hover{
+        color: #000 !important;
+    }
+
+    
+    .button-group .log-btn{
+        margin-top: 1vh !important;
+        margin: 0 25vw !important;
+        margin-bottom: 25px !important;
+        background-color: #ffbf00;
+        color: #000 !important;
+        font-size: 22px;
+    }
+
+    .button-group .log-btn:hover{
+        border-color: #ffbf00 !important;
+    }
+    
+    .button-group .user-icon{
+       display: none;
+    }
+
+    .nav-brand-div .user-icon{
+        display: block !important;
+        margin-left: 5vw;
+    }
+
+    .card-cont h1{
+        font-size: 1.5rem !important;
+        margin-top: 10vh !important;
+    }
+
+    .card-cont .card-grid{
+   
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+        margin-top: 1vh;
+        padding: 25px
+    }
+
+    .card-cont .card{
+       
+        width: 80vw !important;
+        height: fit-content;
+        margin-left: 1vw;
+    }
+
+    .footer-left i{
+        font-size: 22px !important;
+    }
+
+    .footer-right p{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    .modal-dialog{
+       margin-top: 8vh;
+    }
+
+    .modal-body  textarea{
+        border: none;
+        border-bottom: 4px solid black ;
+        height: 50vh;
+    }
+
+    .heading h1{
+        font-size: 1.8rem;
+        margin-top: -2vh;
+    }
+    
+
+
+    .form-div{
+        height: fit-content;
+        width: 90vw;
+        margin-left: 5vw;
+    }
+    
+    .form-div label{
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+    
+    .form-class input{
+        width: 80vw;
+        font-size: 20px;
+
+    }
+    
+    
+    .form-class textarea{
+       width: 80vw;
+    }
+    
+    .form-class textarea:focus{
+        outline:0px !important;
+        -webkit-appearance:none;
+        box-shadow: none !important;
+        border-bottom: 4px solid #ffbf00 !important;
+    }
+    
+    .form-class .btn-submit{
+        width: 120px;
+        height: 40px;
+        border: none;
+        background-color: #ffbf00;
+        color: black;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: 0.6s ease-in-out;
+    }
+    
+    .form-class .btn-submit:hover{
+        background-color: #ffe084;
+    }
+    
+    .form-class .btn-submit:disabled{
+        background-color: rgb(192, 189, 189);
+        transition: 0.6s ease-in-out;
+    }
+
+    .not-found{
+   
+        margin-left: -5vw;
+        margin-top: -10vh;
+    }
+
+    .login{
+    
+        height: 100vh;
+        
+    }
+     
+    .login .login-container{
+        padding: 2rem;
+    }
+
+        
+    .login-container img{
+        width: 120px;
+        height: 120px;
+    }
+    
+    .login-container button{
+        font-size: 0.8rem;
+    }
+    
+    .login-container p{
+        font-size: 0.8rem;
+    }
+   
+    
+    
+}
+
+
+
+
+@media (min-width: 481px) and (max-width: 1200px) {
+
+    .navbar{
+        box-shadow: rgb(214, 213, 213) 0px 0px 0px 0px; 
+    }
+
+    .navbar ul{
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .navbar ul li a{
+       margin-top: 2vh;
+       height: 4vh;
+       font-size: 30px;
+       margin-right: 1vw;
+       margin-left: 1vw;
+       background-color: #ffbf00;
+       border-radius: 0;
+       color: #000 !important;
+       border-right: 3px solid #000;
+       
+    }
+
+    .navbar ul li a:hover{
+        color: #000 !important;
+     }
+    
+    
+    .button-group .log-btn{
+        margin-top: -5.5vh !important;
+        margin-left: 58vw !important;
+        margin-bottom: 80px;
+        height: 5vh;
+        font-size: 30px;
+        background-color: #ffbf00;
+        color: #000 !important;
+    }
+
+    .button-group .log-btn{
+       border: 0;
+    }
+    
+    .button-group .user-icon{
+       display: none;
+    }
+
+    .nav-brand-div .user-icon{
+        display: block !important;
+        margin-left: 20vw;
+    }
+
+    .card-cont h1{
+        font-size: 2rem !important;
+        margin-top: 5vh !important;
+    }
+
+    .card-cont .card-grid{
+   
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8vw;
+        margin-top: 1vh;
+        padding: 25px
+    }
+
+    .card-cont .card{
+       
+        width: 40vw !important;
+        height: fit-content;
+        margin-left: -1vw;
+
+    }
+
+    .footer-left i{
+        font-size: 22px !important;
+    }
+
+    .footer-right p{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    .modal-dialog{
+       margin-top: 8vh;
+    }
+
+    .modal-body input{
+        font-size: 22px;
+    }
+
+    .modal-body  textarea{
+        height: 40vh;
+        font-size: 22px;
+    }
+
+
+    .heading h1{
+        font-size: 2rem;
+        margin-top: 8vh;
+    }
+    
+    .form-div{
+        /* margin-top: 10vh; */
+        height: fit-content;
+        width: 90vw;
+        margin-left: -1vw;
+    }
+    
+    .form-div label{
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+    
+    .form-class input{
+        width: 80vw;
+        font-size: 20px;
+
+    }
+    
+    
+    .form-class textarea{
+       width: 80vw;
+    }
+    
+    .form-class textarea:focus{
+        outline:0px !important;
+        -webkit-appearance:none;
+        box-shadow: none !important;
+        border-bottom: 4px solid #ffbf00 !important;
+    }
+    
+    .form-class .btn-submit{
+        width: 120px;
+        height: 40px;
+        border: none;
+        background-color: #ffbf00;
+        color: black;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: 0.6s ease-in-out;
+    }
+    
+    .form-class .btn-submit:hover{
+        background-color: #ffe084;
+    }
+    
+    .form-class .btn-submit:disabled{
+        background-color: rgb(192, 189, 189);
+        transition: 0.6s ease-in-out;
+    }
+
+    .not-found{
+   
+        margin-left: 10vw;
+        margin-top: -10vh;
+    }
+    
+    .not-found img{
+        width: 60vw;
+        height: 50vh;
+    }
+    
 }
