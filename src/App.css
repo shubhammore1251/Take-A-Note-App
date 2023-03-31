@@ -173,11 +173,6 @@ html,body {
   border-bottom: 2px solid black;
 }
 
-.modal-body textarea::-webkit-scrollbar-thumb {
-    background-color: rgba(249, 194, 13, 0.97);
-    border-radius: 70vw;
-}
-
 .modal-body textarea:focus {
   outline: 0px !important;
   -webkit-appearance: none;
