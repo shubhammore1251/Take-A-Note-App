@@ -27,13 +27,15 @@ import {
   query
 } from "firebase/firestore";
 
+import Cookies from "js-cookie";
+
 
 
 export const getNotes = () => async (dispatch) => {
   let userNotes = [];
 
   const logedInUser = await JSON.parse(
-    sessionStorage.getItem("takeanote-user")
+    Cookies.get("takeanote-user")
   );
 
   async function getNoteData(db) {

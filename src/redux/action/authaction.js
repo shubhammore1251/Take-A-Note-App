@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import {auth} from "../../firebase"
-
 import { LOAD_PROF, LOGIN_FAIL, LOGIN_REQ, LOGIN_SUCCESS, LOGOUT } from '../action-types';
+import Cookies from 'js-cookie';
 
 export const login = ()=> async (dispatch) =>{
 
@@ -12,7 +12,6 @@ export const login = ()=> async (dispatch) =>{
         })
 
         const provider = new firebase.auth.GoogleAuthProvider()
-        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
         
         const res = await auth.signInWithPopup(provider);
         
@@ -24,8 +23,9 @@ export const login = ()=> async (dispatch) =>{
             userId: res.additionalUserInfo.profile.id
         }
 
-        sessionStorage.setItem("takeanote-access-token",accessToken)
-        sessionStorage.setItem("takeanote-user", JSON.stringify(profile))
+    
+        Cookies.set('takeanote-access-token', accessToken, { expires: 5 });
+        Cookies.set('takeanote-user', JSON.stringify(profile) , { expires: 5 })
 
         dispatch({
             type: LOGIN_SUCCESS,
@@ -54,6 +54,6 @@ export const logout = () => async dispatch =>{
         type: LOGOUT
     })
 
-    sessionStorage.removeItem("takeanote-access-token");
-    sessionStorage.removeItem("takeanote-user");
+    Cookies.remove('takeanote-access-token');
+    Cookies.remove('takeanote-user');
 }
