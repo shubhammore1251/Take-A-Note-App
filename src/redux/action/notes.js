@@ -13,7 +13,6 @@ import {
   UPDATE_NOTE_SUCCESS,
 } from "../action-types";
 
-
 import { db } from "../../firebase";
 
 import {
@@ -24,19 +23,15 @@ import {
   deleteDoc,
   updateDoc,
   where,
-  query
+  query,
 } from "firebase/firestore";
 
 import Cookies from "js-cookie";
 
-
-
 export const getNotes = () => async (dispatch) => {
   let userNotes = [];
 
-  const logedInUser = await JSON.parse(
-    Cookies.get("takeanote-user")
-  );
+  const logedInUser = await JSON.parse(Cookies.get("takeanote-user"));
 
   async function getNoteData(db) {
     const noteCol = collection(db, "notes");
@@ -64,7 +59,6 @@ export const getNotes = () => async (dispatch) => {
       type: GET_NOTE_SUCCESS,
       payload: userNotes,
     });
-
   } catch (error) {
     dispatch({
       type: GET_NOTE_FAIL,
@@ -76,12 +70,7 @@ export const getNotes = () => async (dispatch) => {
   }
 };
 
-
-
-
 export const addNote = (data) => async (dispatch) => {
-  
- 
   try {
     dispatch({
       type: ADD_NOTE_REQ,
@@ -93,14 +82,13 @@ export const addNote = (data) => async (dispatch) => {
       uname: data.uname,
       title: data.title,
       text: data.text,
-      createdAt: String(data.createdAt)
+      createdAt: String(data.createdAt),
     });
 
     dispatch({
       type: ADD_NOTE_SUCCESS,
       payload: data,
     });
-
   } catch (error) {
     dispatch({
       type: ADD_NOTE_FAIL,
@@ -112,57 +100,51 @@ export const addNote = (data) => async (dispatch) => {
   }
 };
 
-
-
-
 export const deleteNote = (data) => async (dispatch) => {
-  
   try {
-    dispatch({ 
-      type: DELETE_NOTE_REQ 
-    })
-    
-    await deleteDoc(doc(db, 'notes', data.id))
-    
-    dispatch({ 
-      type: DELETE_NOTE_SUCCESS,
-      payload: data
-    })
+    dispatch({
+      type: DELETE_NOTE_REQ,
+    });
 
+    await deleteDoc(doc(db, "notes", data.id));
+
+    dispatch({
+      type: DELETE_NOTE_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: DELETE_NOTE_FAIL,
       payload:
-        error.response && error.response.data.message ? error.response.data.message : error.message
-    })
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
-}
+};
 
-
-export const updateNote = (data) => async(dispatch)=>{
-  
+export const updateNote = (data) => async (dispatch) => {
   try {
-    
     dispatch({
-      type: UPDATE_NOTE_REQ
-    })
+      type: UPDATE_NOTE_REQ,
+    });
 
-    await updateDoc(doc(db, 'notes', data.id1), {
+    await updateDoc(doc(db, "notes", data.id1), {
       title: data.title1,
-      text: data.text1
-    })
+      text: data.text1,
+    });
 
     dispatch({
       type: UPDATE_NOTE_SUCCESS,
-      payload: data
-    })
-
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: UPDATE_NOTE_FAIL,
       payload:
-        error.response && error.response.data.message ? error.response.data.message : error.message
-    })
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };
-
