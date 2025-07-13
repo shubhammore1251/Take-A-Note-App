@@ -7,6 +7,8 @@ import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import Register2FA from "./components/Register2FA";
+import Verify2FA from "./components/Verify2FA";
 
 const Layout = ({ children }) => {
   return (
@@ -18,15 +20,15 @@ const Layout = ({ children }) => {
 };
 
 function App() {
-  const { accessToken, loading } = useSelector((state) => state.auth);
+  // const { accessToken, loading } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!loading && !accessToken) {
-      navigate("/login");
-    }
-  }, [accessToken, loading, navigate]);
+  // useEffect(() => {
+  //   if (!loading && !accessToken) {
+  //     navigate("/login");
+  //   }
+  // }, [accessToken, loading, navigate]);
 
   return (
     <>
@@ -52,6 +54,18 @@ function App() {
         />
 
         <Route exact path="/login" element={<Login />} />
+
+        <Route
+          exact
+          path="/two-factor/register/:token"
+          element={<Register2FA />}
+        />
+
+        <Route
+          exact
+          path="/two-factor/verify/:token"
+          element={<Verify2FA />}
+        />
       </Routes>
     </>
   );

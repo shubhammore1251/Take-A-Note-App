@@ -13,52 +13,34 @@ import {
   UPDATE_NOTE_SUCCESS,
 } from "../action-types";
 
-import { db } from "../../firebase";
+import axios from "axios";
 
-import {
-  collection,
-  getDocs,
-  doc,
-  setDoc,
-  deleteDoc,
-  updateDoc,
-  where,
-  query,
-} from "firebase/firestore";
-
-import Cookies from "js-cookie";
+let URL =
+  process.env.NODE_ENV === "PRODUCTION"
+    ? process.env.REACT_APP_BACKEND_LIVE_URL
+    : process.env.REACT_APP_BACKEND_LOCAL_URL;
 
 export const getNotes = () => async (dispatch) => {
-  let userNotes = [];
-
-  const logedInUser = await JSON.parse(Cookies.get("takeanote-user"));
-
-  async function getNoteData(db) {
-    const noteCol = collection(db, "notes");
-
-    const UserSpecificNotes = query(
-      noteCol,
-      where("userid", "==", logedInUser.userId)
-    );
-
-    const noteSnapshot = await getDocs(UserSpecificNotes);
-
-    const noteList = noteSnapshot.docs.map((doc) => doc.data());
-
-    return noteList;
-  }
-
   try {
     dispatch({
       type: GET_NOTE_REQ,
     });
 
-    userNotes = await getNoteData(db);
+    const response = await axios.get(
+      `${URL}/api/get-notes`,
+      {},
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
 
-    dispatch({
-      type: GET_NOTE_SUCCESS,
-      payload: userNotes,
-    });
+    if (response && response.status === 200) {
+      dispatch({
+        type: GET_NOTE_SUCCESS,
+        payload: response.data.data ?? [],
+      });
+    }
   } catch (error) {
     dispatch({
       type: GET_NOTE_FAIL,
@@ -76,19 +58,28 @@ export const addNote = (data) => async (dispatch) => {
       type: ADD_NOTE_REQ,
     });
 
-    await setDoc(doc(db, "notes", data.id), {
-      userid: data.userid,
-      id: data.id,
-      uname: data.uname,
-      title: data.title,
-      text: data.text,
-      createdAt: String(data.createdAt),
-    });
+    const response = await axios.post(
+      `${URL}/api/addnote`,
+      {
+        id: data?.id,
+        title: data?.title,
+        text: data?.text,
+        uname: data?.uname,
+        userid: data?.userid,
+        createdAt: new Date(),
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
 
-    dispatch({
-      type: ADD_NOTE_SUCCESS,
-      payload: data,
-    });
+    if (response && response.status === 201) {
+      dispatch({
+        type: ADD_NOTE_SUCCESS,
+        payload: data,
+      });
+    }
   } catch (error) {
     dispatch({
       type: ADD_NOTE_FAIL,
@@ -106,12 +97,21 @@ export const deleteNote = (data) => async (dispatch) => {
       type: DELETE_NOTE_REQ,
     });
 
-    await deleteDoc(doc(db, "notes", data.id));
+    const response = await axios.delete(
+      `${URL}/api/delete-note/${data?.id}`,
+      {},
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
 
-    dispatch({
-      type: DELETE_NOTE_SUCCESS,
-      payload: data,
-    });
+    if (response && response.status === 200) {
+      dispatch({
+        type: DELETE_NOTE_SUCCESS,
+        payload: data,
+      });
+    }
   } catch (error) {
     dispatch({
       type: DELETE_NOTE_FAIL,
@@ -129,15 +129,24 @@ export const updateNote = (data) => async (dispatch) => {
       type: UPDATE_NOTE_REQ,
     });
 
-    await updateDoc(doc(db, "notes", data.id1), {
-      title: data.title1,
-      text: data.text1,
-    });
+    const response = await axios.put(
+      `${URL}/api/update-note/${data?.id1}`,
+      {
+        title: data?.title1,
+        text: data?.text1,
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
 
-    dispatch({
-      type: UPDATE_NOTE_SUCCESS,
-      payload: data,
-    });
+    if (response && response.status === 200) {
+      dispatch({
+        type: UPDATE_NOTE_SUCCESS,
+        payload: data,
+      });
+    }
   } catch (error) {
     dispatch({
       type: UPDATE_NOTE_FAIL,

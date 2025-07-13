@@ -1,14 +1,14 @@
 const { db, admin } = require("../firebase/firebase");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorHandler");
-const getJwtToken = require("../utils/getJwtToken");
+const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
 exports.singUpUser = catchAsyncErrors(async (req, res, next) => {
   const { photoURL, name, email } = req.body;
 
   if (!email) {
-    return next(new ErrorHandler("Email is required"));
+    return next(new ErrorHandler("Email is required", 400));
   }
 
   const usersRef = db.collection("users");
@@ -17,6 +17,8 @@ exports.singUpUser = catchAsyncErrors(async (req, res, next) => {
   const querySnap = await usersRef.where("email", "==", email).limit(1).get();
 
   let userId;
+  let twoFAenabled = false;
+
   if (querySnap.empty) {
     // Step 2: Create new user with generated ID
     userId = uuidv4();
@@ -25,33 +27,32 @@ exports.singUpUser = catchAsyncErrors(async (req, res, next) => {
       name: name || "",
       email,
       photoURL: photoURL || "",
+      two_fa_secret: null,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
   } else {
     // Step 3: User exists — reuse ID
     const docSnap = querySnap.docs[0];
-    userId = docSnap.id;
+    // console.log(docSnap.id, docSnap.get('two_fa_secret'))
+    userId = docSnap.get("id");
+    twoFAenabled = docSnap.get('two_fa_secret') ? true : false;
   }
 
-  // Generate JWT token using the userId
-  const token = await getJwtToken(userId);
-
-  // Set cookie with HttpOnly and Secure flags
-  res.cookie("auth_token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "PRODUCTION",
-    sameSite: "Strict",
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
+  const token = await jwt.sign({ email: email }, process.env.JWT_SECRET, {
+    expiresIn: "10m",
   });
 
   return res.status(200).json({
     success: true,
-    token,
+    data: {
+      userId: userId,
+      multiFactorEnabled: twoFAenabled,
+      verificationToken: token,
+    },
   });
 });
 
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
-
   res.clearCookie("auth_token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "PRODUCTION",
