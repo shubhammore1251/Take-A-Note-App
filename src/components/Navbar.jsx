@@ -1,15 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/action/authaction";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth?.user);
  
   const handleLogOut = () => {
     dispatch(logout());
+    navigate("/login");
   };
 
   return (

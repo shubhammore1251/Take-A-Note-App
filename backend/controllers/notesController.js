@@ -1,31 +1,35 @@
 const { db } = require("../firebase/firebase");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorHandler");
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
 
 exports.addNote = catchAsyncErrors(async (req, res, next) => {
-  const { uname, title, text, createdAt, userId, noteId } = req.body;
+  const { title, text, createdAt, id } = req.body;
 
-  if (!userId || !title || !text) {
+  console.log(req.body);
+
+  if (!title || !text) {
     return next(new ErrorHandler("Missing required fields", 400));
   }
 
-  if (userId !== req.user.id) {
-    return next(
-      new ErrorHandler("You are not allowed to perform this operation", 400)
-    );
-  }
+  // if (userId !== req.user.id) {
+  //   return next(
+  //     new ErrorHandler("You are not allowed to perform this operation", 401)
+  //   );
+  // }
 
   const noteData = {
-    id: noteId,
-    userid: userId,
-    uname: uname || "",
+    id: id,
+    userid: req.user.id,
+    uname: req.user.name || "",
     title,
     text,
     createdAt,
   };
 
-  await db.collection("notes").doc(noteId).set(noteData);
+  console.log(noteData);
+
+  await db.collection("notes").doc(id).set(noteData);
 
   return res.status(201).json({
     succes: true,

@@ -2,7 +2,7 @@ const QRCode = require("qrcode");
 const speakeasy = require("speakeasy");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorHandler");
-const { db } = require("../firebase/firebase");
+const { db, admin } = require("../firebase/firebase");
 const getJwtToken = require("../utils/getJwtToken");
 const jwt = require("jsonwebtoken");
 
@@ -75,6 +75,11 @@ exports.verify2FA = catchAsyncErrors(async (req, res, next) => {
 
   if (Boolean(verified) === true) {
     console.log("Verified");
+
+    await usersRef.doc(doc.id).update({
+      is_two_fa_verified: true,
+      two_fa_verified_at: admin.firestore.FieldValue.serverTimestamp(),
+    });
 
     const token = await getJwtToken(doc.get("id"));
 

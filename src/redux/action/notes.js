@@ -28,7 +28,6 @@ export const getNotes = () => async (dispatch) => {
 
     const response = await axios.get(
       `${URL}/api/get-notes`,
-      {},
       {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,

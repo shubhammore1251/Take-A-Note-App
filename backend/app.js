@@ -33,7 +33,9 @@ const limiter = rateLimit({
   },
 });
 
-app.use(limiter);
+if(process.env.NODE_ENV === "PRODUCTION"){
+  app.use(limiter);
+}
 
 app.use(logger("dev"));
 app.use(express.json());

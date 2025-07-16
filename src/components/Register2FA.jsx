@@ -45,7 +45,12 @@ const Register2FA = () => {
       setLoading(false);
     } catch (error) {
       console.log("Error occured", error);
-      toast.error("Something went wrong!");
+      if (error.response.status === 401) {
+        toast.error("Invalid token");
+        navigate("/login");
+      }else{
+        toast.error("Something went wrong!");
+      }
       setLoading(false);
       setTokenSuccess(false);
     }

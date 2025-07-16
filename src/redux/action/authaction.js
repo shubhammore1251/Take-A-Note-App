@@ -55,15 +55,17 @@ export const login = () => async (dispatch) => {
 
       profile = {
         ...profile,
-        userId: response?.data?.data?.userId
-      }
+        userId: response?.data?.data?.userId,
+      };
 
       dispatch({
         type: LOAD_PROF,
         payload: profile,
       });
 
-      // Cookies.set('takeanote-user', JSON.stringify(profile) , { expires: 1 })
+      Cookies.set("takeanote-user", JSON.stringify(profile), {
+        expires: 1,
+      });
     } else {
       dispatch({
         type: LOGIN_FAIL,
@@ -86,10 +88,9 @@ export const logout = () => async (dispatch) => {
     {},
     {
       headers: { "Content-Type": "application/json" },
-      withCredentials: true // ✅ send cookie so server can clear it
+      withCredentials: true, // ✅ send cookie so server can clear it
     }
   );
-  
 
   if (response && response.status === 200) {
     dispatch({

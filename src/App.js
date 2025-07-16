@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Register2FA from "./components/Register2FA";
 import Verify2FA from "./components/Verify2FA";
+import { AuthProvider } from "./context/AuthContext";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 const Layout = ({ children }) => {
   return (
@@ -32,41 +34,45 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <Layout>
-              <NotesList />
-            </Layout>
-          }
-        />
+      <AuthProvider>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route
+              exact
+              path="/"
+              element={
+                <Layout>
+                  <NotesList />
+                </Layout>
+              }
+            />
 
-        <Route
-          exact
-          path="/addanote"
-          element={
-            <Layout>
-              <AddNote />
-            </Layout>
-          }
-        />
+            <Route
+              exact
+              path="/addanote"
+              element={
+                <Layout>
+                  <AddNote />
+                </Layout>
+              }
+            />
+          </Route>
 
-        <Route exact path="/login" element={<Login />} />
+          <Route exact path="/login" element={<Login />} />
 
-        <Route
-          exact
-          path="/two-factor/register/:token"
-          element={<Register2FA />}
-        />
+          <Route
+            exact
+            path="/two-factor/register/:token"
+            element={<Register2FA />}
+          />
 
-        <Route
-          exact
-          path="/two-factor/verify/:token"
-          element={<Verify2FA />}
-        />
-      </Routes>
+          <Route
+            exact
+            path="/two-factor/verify/:token"
+            element={<Verify2FA />}
+          />
+        </Routes>
+      </AuthProvider>
     </>
   );
 }

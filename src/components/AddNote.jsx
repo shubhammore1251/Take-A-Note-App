@@ -11,8 +11,11 @@ const AddNote = () => {
   const [note, setNote] = useState({title:"", text:""});
 
   const user = useSelector(state => state.auth?.user)
+  console.log(user);
 
   const noteId = uuidv4();
+
+  console.log(noteId, "noteId");
 
   const dispatch = useDispatch();
 
@@ -24,8 +27,6 @@ const AddNote = () => {
     const data = {
       ...note,
       id: noteId,
-      uname: user?.name,
-      userid: user?.userId,
       createdAt: new Date()
     };
 
@@ -81,14 +82,14 @@ const AddNote = () => {
 
        
 
-      <ToastContainer
+      {/* <ToastContainer
         position="top-center"
         autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         pauseOnHover
-      />
+      /> */}
     </div>
   );
 };

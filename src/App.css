@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Uchen&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
   margin: 0;
@@ -20,7 +20,7 @@ html::-webkit-scrollbar-track {
 }
 
 html,body {
-  font-family: "Uchen", serif;
+  font-family: "Montserrat", sans-serif !important;
   overflow-x: hidden;
 }
 
