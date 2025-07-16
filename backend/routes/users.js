@@ -13,7 +13,6 @@ router.route("/check-session").get(isAuthenticatedUser, (req, res) => {
   const twoFAVerified = Boolean(req.user.is_two_fa_verified);
   res.status(200).json({
     valid: true,
-    user: req.user,
     twoFAEnabled,
     twoFAVerified,
   });

@@ -5,14 +5,14 @@ const jwt = require("jsonwebtoken");
 
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   const token = req.cookies.auth_token;
-
+  
   if (!token) {
     return next(new ErrorHandler("Unauthorized access Please login!", 401));
   }
   try {
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedData.id;
-
+    
     // ✅ Fetch user document by ID:
     const docRef = db.collection("users").doc(userId);
     const docSnap = await docRef.get();
