@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNote } from "../redux/action/notes";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +11,7 @@ const AddNote = () => {
   const [note, setNote] = useState({title:"", text:""});
 
   const user = useSelector(state => state.auth?.user)
+  const error = useSelector((state) => state.auth.error);
   console.log(user);
 
   const noteId = uuidv4();
@@ -38,6 +39,13 @@ const AddNote = () => {
   const onChange = (e)=>{
     setNote({...note,[e.target.name]: e.target.value});
   }
+
+  useEffect(() => {
+    if (error) {
+      toast.error('Error Occured! Please Try Again');
+    }
+  }, [error])
+  
 
 
   return (

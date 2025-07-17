@@ -25,13 +25,11 @@ export const login = () => async (dispatch) => {
 
     const res = await auth.signInWithPopup(provider);
 
-    console.log("response", res);
-
     let profile = {
       name: res.additionalUserInfo.profile.name,
       photoURL: res.additionalUserInfo.profile.picture,
     };
-
+    
     const response = await axios.post(
       `${URL}/api/signupuser`,
       {
@@ -42,6 +40,7 @@ export const login = () => async (dispatch) => {
       {
         withCredentials: true,
         headers: {
+          'x-crypt-value': process.env.REACT_APP_BACKEND_CRYPT_SECRET,
           "Content-Type": "application/json",
         },
       }

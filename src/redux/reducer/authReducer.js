@@ -5,6 +5,7 @@ const initialState = {
     user: Cookies.get('takeanote-user') ? JSON.parse(Cookies.get('takeanote-user')) : null,
     loading: false,
     twoFAData: null,
+    error: null
 }
 
 

@@ -29,6 +29,7 @@ const Register2FA = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            'x-crypt-value': process.env.REACT_APP_BACKEND_CRYPT_SECRET
           },
         }
       );
@@ -68,6 +69,7 @@ const Register2FA = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            'x-crypt-value': process.env.REACT_APP_BACKEND_CRYPT_SECRET
           },
         }
       );

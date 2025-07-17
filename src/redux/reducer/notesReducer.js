@@ -15,7 +15,9 @@ import {
 
 
 const initialState = {
-  notesList: []
+  notesList: [],
+  loading: false,
+  error: null,
 }
 
 export const notesReducer = (state = initialState, action) => {

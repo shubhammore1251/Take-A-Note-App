@@ -10,6 +10,7 @@ const NotesList = () => {
   
 
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.auth.error);
 
   useEffect(() => {
     dispatch(getNotes())
@@ -30,8 +31,7 @@ const NotesList = () => {
     notesList: list,
     loading,
   } = useSelector((state) => state.getnotes);
-  
-  
+
 
   const ref = useRef(null);
   const refClose = useRef(null);
@@ -67,6 +67,11 @@ const NotesList = () => {
     notify("Note Deleted");
   };
 
+  useEffect(() => {
+    if (error) {
+      toast.error('Error Occured! Please Try Again');
+    }
+  }, [error])
   
 
   

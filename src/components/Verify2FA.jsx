@@ -31,6 +31,7 @@ const Verify2FA = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            'x-crypt-value': process.env.REACT_APP_BACKEND_CRYPT_SECRET
           },
         }
       );
@@ -126,6 +127,7 @@ const Verify2FA = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
+            'x-crypt-value': process.env.REACT_APP_BACKEND_CRYPT_SECRET
           },
         }
       );

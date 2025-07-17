@@ -42,7 +42,7 @@ exports.singUpUser = catchAsyncErrors(async (req, res, next) => {
     expiresIn: "10m",
   });
 
-  return res.status(200).json({
+  res.status(200).json({
     success: true,
     data: {
       userId: userId,
@@ -50,6 +50,8 @@ exports.singUpUser = catchAsyncErrors(async (req, res, next) => {
       verificationToken: token,
     },
   });
+
+  next();
 });
 
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {

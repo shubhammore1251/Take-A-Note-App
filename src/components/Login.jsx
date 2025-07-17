@@ -2,17 +2,26 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/action/authaction";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const accessToken = useSelector((state) => state.auth.accessToken);
   const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
   const twoFAData = useSelector((state) => state.auth.twoFAData);
 
   const handleLogin = () => {
     dispatch(login());
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error('Error Occured! Please Try Again');
+    }
+  }, [error])
+  
 
   useEffect(() => {
     if (twoFAData) {
@@ -40,7 +49,7 @@ const Login = () => {
         <p>
           Take'A'Note App Made by{" "}
           <a
-            href="https://github.com/more1251"
+            href={process.env.REACT_APP_SOCIAL_GITHUB_LINK}
             target="_blank"
             rel="noreferrer"
           >

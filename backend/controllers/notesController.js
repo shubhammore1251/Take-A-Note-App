@@ -49,11 +49,13 @@ exports.getNotes = catchAsyncErrors(async (req, res, next) => {
     ...doc.data(),
   }));
 
-  return res.status(200).json({
+  res.status(200).json({
     success: true,
     count: notes.length,
     data: notes,
   });
+
+  next();
 });
 
 exports.updateNote = catchAsyncErrors(async (req, res, next) => {
@@ -84,10 +86,12 @@ exports.updateNote = catchAsyncErrors(async (req, res, next) => {
     text: text !== undefined ? text : noteData.text,
   });
 
-  return res.status(200).json({
+  res.status(200).json({
     success: true,
     message: "Note Updated successfully",
   });
+
+  next();
 });
 
 exports.deleteNote = catchAsyncErrors(async (req, res, next) => {
@@ -112,8 +116,10 @@ exports.deleteNote = catchAsyncErrors(async (req, res, next) => {
 
   await noteRef.delete();
 
-  return res.status(200).json({
+  res.status(200).json({
     success: true,
     message: "Note Deleted successfully",
   });
+
+  next();
 });

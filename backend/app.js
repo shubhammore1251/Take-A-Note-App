@@ -5,6 +5,8 @@ var logger = require("morgan");
 const { rateLimit } = require("express-rate-limit");
 const errorMiddleware = require("./middleware/error");
 var cors = require("cors");
+const useragent = require('express-useragent');
+const { generateBcryptHash, compareBcryptHashes } = require("./utils/bycrypt");
 
 var app = express();
 
@@ -37,6 +39,7 @@ if(process.env.NODE_ENV === "PRODUCTION"){
   app.use(limiter);
 }
 
+app.use(useragent.express());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
