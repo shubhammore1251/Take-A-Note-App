@@ -4,6 +4,7 @@ import { addNote } from "../redux/action/notes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
+import { encryptText } from "../utils/cryptoHash";
 
 
 const AddNote = () => {
@@ -24,9 +25,12 @@ const AddNote = () => {
   
   const handleClick =(e)=>{ 
     e.preventDefault();
+    
+    const secretText = encryptText(note?.text);
 
     const data = {
       ...note,
+      text: secretText,
       id: noteId,
       createdAt: new Date()
     };

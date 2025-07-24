@@ -5,6 +5,7 @@ import NoteCard from "./NoteCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "./Spinner";
+import { decryptText, encryptText } from "../utils/cryptoHash";
 
 const NotesList = () => {
   
@@ -44,11 +45,14 @@ const NotesList = () => {
 
   const editNote = (currNote) => {
     ref.current.click();
+    
+    const decryptedText = decryptText(currNote?.text);
+
     setUpdatedNote({
       userid1: currNote.userid,
       createdAt1: currNote.createdAt,
       title1: currNote.title,
-      text1: currNote.text,
+      text1: decryptedText,
       id1: currNote.id,
       uname1: currNote.uname
     });
@@ -56,7 +60,8 @@ const NotesList = () => {
   
   
   const handleClick = () => {
-    dispatch(updateNote(updatedNote));
+    const updatedNoteText = encryptText(updatedNote?.text1);
+    dispatch(updateNote({...updatedNote, text1: updatedNoteText}));
     refClose.current.click();
     notify("Note Saved");
   };

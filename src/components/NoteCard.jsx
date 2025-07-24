@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { decryptText } from "../utils/cryptoHash";
 
 const NoteCard = ({ note, editNote, notify, handleDelete}) => {
 
@@ -9,14 +10,16 @@ const NoteCard = ({ note, editNote, notify, handleDelete}) => {
 
   const heading = title.length>30? `${title.slice(0,30)}...` :title
 
-  const bodytext = text.length>200? `${text.slice(0,200)} ...` :text
+  // const decryptedText = decryptText(text);
+
+  const bodytext = text.length>200? `${text.slice(0,200)} ...` : text
 
   return (
     <div className="card text-dark mb-3">
       <div className="card-header">{heading}</div>
     
       <div className="card-body">
-        <p className="card-text">{bodytext}</p>
+        <p className="card-text">{`* * * * * * * * * `}</p>
       </div>
 
       <div className="d-flex card-footer justify-content-between">
