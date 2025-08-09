@@ -60,8 +60,8 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
   res.clearCookie("auth_token", {
     httpOnly: true,
     secure: isProd,
-    sameSite: "Strict", // match your original sameSite value
-    path: "/", // ensure same path
+    sameSite: "none",
+    path: "/",
   });
 
   // Send response or redirect

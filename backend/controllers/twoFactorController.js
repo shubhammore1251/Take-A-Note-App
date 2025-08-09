@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 
 const isProd = process.env.NODE_ENV === "PRODUCTION";
 
+
+
 exports.setUp2FA = catchAsyncErrors(async (req, res, next) => {
   const { email } = req.body;
 
@@ -84,11 +86,13 @@ exports.verify2FA = catchAsyncErrors(async (req, res, next) => {
     });
 
     const token = await getJwtToken(doc.get("id"));
+    
+    console.log("isProd >>>", isProd);
 
     res.cookie("auth_token", token, {
       httpOnly: true,
-      secure: isProd, // must be true if sameSite is 'none'
-      sameSite: isProd ? "none" : "lax", // lowercase
+      secure: isProd,
+      sameSite: "none",
       path: "/",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
