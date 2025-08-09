@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "takeanoteapp"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
