@@ -7,7 +7,7 @@ import { logout } from "../redux/action/authaction";
 import { useAuth } from "../context/AuthContext";
 
 let URL =
-  process.env.NODE_ENV === "PRODUCTION"
+  process.env.REACT_APP_NODE_ENV === "PRODUCTION"
     ? process.env.REACT_APP_BACKEND_LIVE_URL
     : process.env.REACT_APP_BACKEND_LOCAL_URL;
 

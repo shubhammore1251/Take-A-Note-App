@@ -6,6 +6,8 @@ const { db, admin } = require("../firebase/firebase");
 const getJwtToken = require("../utils/getJwtToken");
 const jwt = require("jsonwebtoken");
 
+const isProd = process.env.NODE_ENV === "PRODUCTION";
+
 exports.setUp2FA = catchAsyncErrors(async (req, res, next) => {
   const { email } = req.body;
 
@@ -63,8 +65,8 @@ exports.verify2FA = catchAsyncErrors(async (req, res, next) => {
 
   // There should be just one match
   const doc = querySnap.docs[0];
-  
-  const secret = doc.get('two_fa_secret');
+
+  const secret = doc.get("two_fa_secret");
 
   const verified = speakeasy.totp.verify({
     secret: secret,
@@ -85,8 +87,8 @@ exports.verify2FA = catchAsyncErrors(async (req, res, next) => {
 
     res.cookie("auth_token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "PRODUCTION",
-      sameSite: process.env.NODE_ENV === "PRODUCTION" ? "none" : "lax",
+      secure: isProd, // must be true if sameSite is 'none'
+      sameSite: isProd ? "none" : "lax", // lowercase
       path: "/",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });

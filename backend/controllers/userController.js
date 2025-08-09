@@ -4,6 +4,8 @@ const ErrorHandler = require("../utils/errorHandler");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
+const isProd = process.env.NODE_ENV === "PRODUCTION";
+
 exports.singUpUser = catchAsyncErrors(async (req, res, next) => {
   const { photoURL, name, email } = req.body;
 
@@ -57,7 +59,7 @@ exports.singUpUser = catchAsyncErrors(async (req, res, next) => {
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
   res.clearCookie("auth_token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "PRODUCTION",
+    secure: isProd,
     sameSite: "Strict", // match your original sameSite value
     path: "/", // ensure same path
   });

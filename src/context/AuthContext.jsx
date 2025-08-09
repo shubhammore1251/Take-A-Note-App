@@ -7,9 +7,11 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 let URL =
-  process.env.NODE_ENV === "PRODUCTION"
+  process.env.REACT_APP_NODE_ENV === "PRODUCTION"
     ? process.env.REACT_APP_BACKEND_LIVE_URL
     : process.env.REACT_APP_BACKEND_LOCAL_URL;
+
+console.log(URL);
 
 export const AuthProvider = ({ children }) => {
   const [checking, setChecking] = useState(true);

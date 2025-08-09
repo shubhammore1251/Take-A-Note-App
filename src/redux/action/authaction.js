@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 let URL =
-  process.env.NODE_ENV === "PRODUCTION"
+  process.env.REACT_APP_NODE_ENV === "PRODUCTION"
     ? process.env.REACT_APP_BACKEND_LIVE_URL
     : process.env.REACT_APP_BACKEND_LOCAL_URL;
 
