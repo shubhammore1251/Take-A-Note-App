@@ -46,3 +46,9 @@ Deployed using Firebase hosting
 - Update  your notes
 - Delete your notes
 - Access your notes from anywhere on Mobile,Laptop and Ipad
+- Mandatory 2FA setup after login/signup for enhanced security
+- Data is encrypted in Firebase Firestore for privacy
+- Email alerts on every login, signup, and whenever notes are fetched, updated, or deleted to monitor suspicious activity
+
+## Security
+This app enforces two-factor authentication (2FA) to keep your account safe. All note data is stored encrypted in Firebase, and email notifications keep you informed of all important account actions, helping you detect any unauthorized access immediately.
